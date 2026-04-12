@@ -22,20 +22,14 @@ export default function Chat() {
 
   useEffect(() => {
     const client = new Client({
-      brokerURL: "wss://hidechat-1nub.onrender.com/ws/chat", // ✅ correct
+      brokerURL: "wss://hidechat-1nub.onrender.com/ws/chat", // ✅ FIX
       reconnectDelay: 5000,
 
       onConnect: () => {
-        console.log("Connected ✅");
-
         client.subscribe(`/topic/room/${keyword}`, (message) => {
           const newMsg = JSON.parse(message.body);
           setMessages((prev) => [...prev, newMsg]);
         });
-      },
-
-      onStompError: (frame) => {
-        console.error("WebSocket error:", frame);
       },
     });
 
@@ -69,34 +63,104 @@ export default function Chat() {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "50px auto" }}>
-      <h2>Room: {keyword}</h2>
+    <div style={styles.container}>
+      <h2 style={styles.header}>Room: {keyword}</h2>
 
-      <div style={{
-        height: "400px",
-        overflowY: "auto",
-        border: "1px solid #ccc",
-        padding: "10px"
-      }}>
-        {messages.map((m, i) => (
-          <p key={i}>
-            <b>{m.sender}</b>: {m.content}
-            <span style={{ fontSize: "10px", marginLeft: "5px" }}>
-              {formatTime(m.timestamp)}
-            </span>
-          </p>
-        ))}
+      <div style={styles.chatBox}>
+        {messages.map((m, i) => {
+          const isMe = m.sender === name;
+
+          return (
+            <div
+              key={i}
+              style={{
+                ...styles.messageContainer,
+                justifyContent: isMe ? "flex-end" : "flex-start",
+              }}
+            >
+              <div
+                style={{
+                  ...styles.message,
+                  backgroundColor: isMe ? "#00ff00" : "#222",
+                  color: isMe ? "#000" : "#fff",
+                }}
+              >
+                {!isMe && <div style={styles.sender}>{m.sender}</div>}
+                <div>{m.content}</div>
+                <div style={styles.timestamp}>
+                  {formatTime(m.timestamp)}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
         <div ref={bottomRef}></div>
       </div>
 
-      <input
-        value={msg}
-        onChange={(e) => setMsg(e.target.value)}
-        onKeyDown={handleKeyPress}
-        placeholder="Type message..."
-      />
-
-      <button onClick={sendMessage}>Send</button>
+      <div style={styles.inputBox}>
+        <input
+          style={styles.input}
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Type message..."
+        />
+        <button style={styles.button} onClick={sendMessage}>
+          Send
+        </button>
+      </div>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    maxWidth: "600px",
+    margin: "50px auto",
+    fontFamily: "Arial",
+  },
+  header: {
+    marginBottom: "10px",
+  },
+  chatBox: {
+    height: "400px",
+    overflowY: "auto",
+    border: "1px solid #444",
+    padding: "10px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  messageContainer: {
+    display: "flex",
+  },
+  message: {
+    padding: "10px",
+    borderRadius: "10px",
+    maxWidth: "70%",
+  },
+  sender: {
+    fontSize: "12px",
+    fontWeight: "bold",
+  },
+  timestamp: {
+    fontSize: "10px",
+    textAlign: "right",
+  },
+  inputBox: {
+    display: "flex",
+    marginTop: "10px",
+  },
+  input: {
+    flex: 1,
+    padding: "10px",
+  },
+  button: {
+    marginLeft: "10px",
+    padding: "10px",
+    background: "#00ff00",
+    border: "none",
+    cursor: "pointer",
+  },
+};

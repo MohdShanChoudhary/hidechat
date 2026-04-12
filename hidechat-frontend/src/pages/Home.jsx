@@ -12,7 +12,7 @@ export default function Home() {
     }
 
     await axios.post(
-      `http://localhost:8080/api/room/create?keyword=${keyword}&username=${name}&maxUsers=2`
+      `http://hidechat-1nub.onrender.com/api/room/create?keyword=${keyword}&username=${name}&maxUsers=2`
     );
     window.location.href = `/chat/${keyword}/${name}`;
   };
@@ -24,7 +24,7 @@ export default function Home() {
     }
 
     await axios.post(
-      `http://localhost:8080/api/room/join?keyword=${keyword}&username=${name}`
+      `http://hidechat-1nub.onrender.com/api/room/join?keyword=${keyword}&username=${name}`
     );
     window.location.href = `/chat/${keyword}/${name}`;
   };

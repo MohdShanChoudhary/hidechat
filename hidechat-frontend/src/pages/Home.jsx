@@ -40,27 +40,6 @@ export default function Home() {
           background-color: #000;
           color: #00ff00;
           font-family: 'Courier New', monospace;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ctext x='10' y='30' font-size='20'%3E😊%3C/text%3E%3C/svg%3E");
-          background-repeat: repeat;
-          background-size: 50px 50px;
-          margin: 0;
-          padding: 0;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        @media (max-width: 600px) {
-          body {
-            font-size: 14px;
-          }
-          .container {
-            margin: 20px;
-            padding: 20px;
-          }
-          .title {
-            font-size: 2em;
-          }
         }
       `}</style>
 
@@ -94,20 +73,15 @@ export default function Home() {
 const styles = {
   container: {
     maxWidth: "500px",
-    margin: "50px auto",
+    margin: "100px auto",
     textAlign: "center",
     padding: "40px",
     border: "2px solid #00ff00",
-    backgroundColor: "rgba(17,17,17,0.9)",
-    width: "90%",
-    boxSizing: "border-box",
-    borderRadius: "10px",
-    boxShadow: "0 0 20px #00ff00",
+    backgroundColor: "#111",
   },
   title: {
     fontSize: "2.5em",
     marginBottom: "20px",
-    textShadow: "0 0 10px #00ff00",
   },
   input: {
     width: "100%",
@@ -116,8 +90,6 @@ const styles = {
     background: "#000",
     color: "#00ff00",
     border: "1px solid #00ff00",
-    borderRadius: "5px",
-    fontFamily: "inherit",
   },
   button: {
     width: "100%",
@@ -127,8 +99,5 @@ const styles = {
     color: "#000",
     border: "none",
     cursor: "pointer",
-    borderRadius: "5px",
-    fontWeight: "bold",
-    transition: "background 0.3s",
   },
 };

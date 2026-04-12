@@ -63,7 +63,34 @@ export default function Chat() {
   };
 
   return (
-    <div style={styles.container}>
+    <>
+      <style>{`
+        body {
+          background-color: #000;
+          color: #00ff00;
+          font-family: 'Courier New', monospace;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Ctext x='10' y='30' font-size='20'%3E😊%3C/text%3E%3C/svg%3E");
+          background-repeat: repeat;
+          background-size: 50px 50px;
+          margin: 0;
+          padding: 0;
+          min-height: 100vh;
+        }
+        @media (max-width: 600px) {
+          body {
+            font-size: 14px;
+          }
+          .container {
+            margin: 10px;
+            padding: 10px;
+          }
+          .chatBox {
+            height: 300px;
+          }
+        }
+      `}</style>
+
+      <div style={styles.container}>
       <h2 style={styles.header}>Room: {keyword}</h2>
 
       <div style={styles.chatBox}>
@@ -111,17 +138,27 @@ export default function Chat() {
         </button>
       </div>
     </div>
+    </>
   );
 }
 
 const styles = {
   container: {
     maxWidth: "600px",
-    margin: "50px auto",
+    margin: "20px auto",
     fontFamily: "Arial",
+    padding: "20px",
+    backgroundColor: "rgba(17,17,17,0.9)",
+    borderRadius: "10px",
+    boxShadow: "0 0 20px #00ff00",
+    width: "95%",
+    boxSizing: "border-box",
   },
   header: {
     marginBottom: "10px",
+    textAlign: "center",
+    fontSize: "1.5em",
+    textShadow: "0 0 10px #00ff00",
   },
   chatBox: {
     height: "400px",
@@ -131,6 +168,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "10px",
+    backgroundColor: "#000",
+    borderRadius: "5px",
   },
   messageContainer: {
     display: "flex",
@@ -139,28 +178,40 @@ const styles = {
     padding: "10px",
     borderRadius: "10px",
     maxWidth: "70%",
+    wordWrap: "break-word",
   },
   sender: {
     fontSize: "12px",
     fontWeight: "bold",
+    marginBottom: "5px",
   },
   timestamp: {
     fontSize: "10px",
     textAlign: "right",
+    marginTop: "5px",
   },
   inputBox: {
     display: "flex",
     marginTop: "10px",
+    gap: "10px",
   },
   input: {
     flex: 1,
     padding: "10px",
+    background: "#000",
+    color: "#00ff00",
+    border: "1px solid #00ff00",
+    borderRadius: "5px",
+    fontFamily: "inherit",
   },
   button: {
-    marginLeft: "10px",
     padding: "10px",
     background: "#00ff00",
+    color: "#000",
     border: "none",
     cursor: "pointer",
+    borderRadius: "5px",
+    fontWeight: "bold",
+    transition: "background 0.3s",
   },
 };
